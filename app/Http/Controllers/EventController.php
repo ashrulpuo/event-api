@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    public $successStatus = 200;
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::all();
+        return response()->json([
+            'success' => true,
+            'events' => $events
+        ], $this->successStatus);
     }
 
     /**
@@ -24,7 +30,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +41,12 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        Event::create($input);
+        return response()->json([
+            'success' => true,
+            'message' => 'Event success created'
+        ], $this->successStatus);
     }
 
     /**
