@@ -6,6 +6,8 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Event;
+use App\EventStatus;
 
 class User extends Authenticatable
 {
@@ -46,4 +48,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function events()
+    {
+        return $this->hasManyThrough(EventStatus::class, Event::class, 'user_id', 'id', 'event_id', 'id');
+    }
 }

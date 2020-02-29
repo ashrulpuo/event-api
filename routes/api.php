@@ -21,4 +21,8 @@ Route::prefix('v1')->group(function () {
     });
     Route::post('updateUser/{id}', 'Api\AuthController@updateUser');
     Route::resource('events', 'EventController');
+    Route::resource('myevents', 'EventStatusController');
+    Route::resource('admin', 'AdminController');
+    Route::post('updateEvent/{id}', 'AdminController@updateEvent');
+
 });

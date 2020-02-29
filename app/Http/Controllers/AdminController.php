@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
 use Illuminate\Http\Request;
+use App\Event;
 
-class EventController extends Controller
+class AdminController extends Controller
 {
     public $successStatus = 200;
-
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +15,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
-        return response()->json([
-            'success' => true,
-            'events' => $events
-        ], $this->successStatus);
+        
     }
 
     /**
@@ -30,7 +25,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -41,36 +36,31 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        Event::create($input);
-        return response()->json([
-            'success' => true,
-            'message' => 'Event success created'
-        ], $this->successStatus);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Event  $event
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show($adminId)
     {
-        $detail = Event::find($event)->first();
+        $adminEvents = Event::where('user_id', $adminId)->get();
         return response()->json([
             'success' => true,
-            'eventDetail' => $detail
+            'events' => $adminEvents
         ], $this->successStatus);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Event  $event
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
         //
     }
@@ -79,21 +69,27 @@ class EventController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Event  $event
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function updateEvent(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $event = Event::find($id);
+        $event->update($input);
+        return response()->json([
+            'success' => true,
+            'message' => 'success update event'
+        ], $this->successStatus);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Event  $event
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
         //
     }

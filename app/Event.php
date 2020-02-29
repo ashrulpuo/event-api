@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Event;
 
 class Event extends Model
 {
@@ -12,6 +13,12 @@ class Event extends Model
         'event_name',
         'venue',
         'event_date',
-        'event_details'
+        'event_details',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
