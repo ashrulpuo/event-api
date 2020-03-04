@@ -17,7 +17,8 @@ class CreateEventRegistersTable extends Migration
             $table->bigIncrements('id');
             $table->string('event_name');
             $table->string('venue');
-            $table->datetime('event_date');
+            $table->date('event_date');
+            $table->timeTz('event_time');
             $table->string('event_details');
             $table->string('user_id');
             $table->timestamps();
