@@ -76,6 +76,9 @@ class AdminController extends Controller
     {
         $input = $request->all();
         $event = Event::find($id);
+        $input['event_startTime'] = date('H:i', strtotime($input['event_startTime']));
+        $input['event_endTime'] = date('H:i', strtotime($input['event_endTime']));
+        $input['event_date'] = date("Y-m-d",strtotime($input['event_date']));
         $event->update($input);
         return response()->json([
             'success' => true,

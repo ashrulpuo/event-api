@@ -13,6 +13,9 @@ class Event extends Model
         'event_name',
         'venue',
         'event_date',
+        'event_startTime',
+        'event_endTime',
+        'event_category',
         'event_details',
         'user_id'
     ];

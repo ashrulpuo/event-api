@@ -23,11 +23,9 @@ class User extends Authenticatable
         'email',
         'student_id',
         'role',
-        'type_event',
         'image_path',
         'disiplin',
         'interest',
-        'abilities',
         'password'    
     ];
 

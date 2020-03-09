@@ -19,11 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('student_id')->uniqid();
             $table->integer('role');
-            $table->string('type_event');
             $table->string('image_path')->nullable();
             $table->string('disiplin');
             $table->string('interest');
-            $table->string('abilities');    
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

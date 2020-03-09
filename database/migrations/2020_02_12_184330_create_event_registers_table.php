@@ -18,7 +18,9 @@ class CreateEventRegistersTable extends Migration
             $table->string('event_name');
             $table->string('venue');
             $table->date('event_date');
-            $table->timeTz('event_time');
+            $table->timeTz('event_startTime');
+            $table->timeTz('event_endTime');
+            $table->string('event_category');
             $table->string('event_details');
             $table->string('user_id');
             $table->timestamps();
