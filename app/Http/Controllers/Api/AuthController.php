@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Interest;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use DB;
@@ -26,9 +27,22 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
+        $data = $request->all();
+
+        $input['name'] = $data['name'];
+        $input['email'] = $data['email'] ;
+        $input['student_id'] = $data['student_id'] ;
+        $input['role'] = $data['role'] ;
+        $input['image_path'] = $data['image_path'];
+        $input['disiplin'] = $data['disiplin'];
+        $input['password'] = bcrypt($data['password']);
         $user = User::create($input);
+        
+        foreach ($data['interest'] as $key => $value) {
+            $interest['user_id'] = $user['id'];
+            $interest['interest'] = $value;
+            Interest::create($interest);
+        }
         $success['token'] =  $user->createToken('AppName')->accessToken;
         return response()->json([
             'success' => true,

@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('role');
             $table->string('image_path')->nullable();
             $table->string('disiplin');
-            $table->string('interest');
+            // $table->string('interest');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
