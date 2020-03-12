@@ -24,5 +24,5 @@ Route::prefix('v1')->group(function () {
     Route::resource('myevents', 'EventStatusController');
     Route::resource('admin', 'AdminController');
     Route::post('updateEvent/{id}', 'AdminController@updateEvent');
-
+    Route::get('dashboard/{id}', 'EventController@index');
 });

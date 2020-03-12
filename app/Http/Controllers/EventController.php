@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Illuminate\Http\Request;
+use App\Interest;
 
 class EventController extends Controller
 {
@@ -14,12 +15,16 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $events = Event::all();
+        $interest = Interest::select('interest')->where('user_id', $id)->get()->toArray();
+        $events = Event::whereNotIn('event_category', $interest)->get()->toArray();
+        $eventsInterest = Event::whereIn('event_category', $interest)->get()->toArray();
+        
+        $data = array_merge($eventsInterest, $events);
         return response()->json([
             'success' => true,
-            'events' => $events
+            'events' => $data
         ], $this->successStatus);
     }
 
