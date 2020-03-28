@@ -23,6 +23,7 @@ class CreateEventRegistersTable extends Migration
             $table->string('event_category');
             $table->string('event_details');
             $table->string('user_id');
+            $table->string('count')->defaults(0);
             $table->timestamps();
         });
     }

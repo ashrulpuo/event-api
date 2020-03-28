@@ -21,21 +21,27 @@ class EventStatusController extends Controller
     {
         $input = $request->all();
         EventStatus::create($input);
+        Event::where('id', $input['event_id'])
+        ->update([
+            'count' => DB::raw('count+1') 
+        ]);
         return response()->json([
             'success' => true,
             'message' => 'You Join This Event !'
         ], $this->successStatus);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
-        $userId = $request->all();
-        // $events = User::find(8)->events;
         $events = DB::table('event_status')
-        ->join('user', 'event_status.user_id', '=', 'user.id')
-        ->select('event_status.id', 'event_status.user_id')
-        // ->where('user.id', $userId)  
-        ->get();
-        dd($events); 
+            ->join('users', 'event_status.user_id', '=', 'users.id')
+            ->join('event_register', 'event_status.event_id', '=', 'event_register.id')
+            ->select('users.name', 'status', 'event_register.*')
+            ->where('event_status.user_id', '=', $id)
+            ->get();
+        return response()->json([
+            'success' => true,
+            'events' => $events
+        ], $this->successStatus);
     }
 }

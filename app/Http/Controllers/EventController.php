@@ -34,6 +34,7 @@ class EventController extends Controller
         $input['event_startTime'] = date('H:i', strtotime($input['event_startTime']));
         $input['event_endTime'] = date('H:i', strtotime($input['event_endTime']));
         $input['event_date'] = date("Y-m-d",strtotime($input['event_date']));
+        $input['count'] = 0;
         Event::create($input);
         return response()->json([
             'success' => true,

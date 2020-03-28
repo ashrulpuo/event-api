@@ -17,7 +17,8 @@ class Event extends Model
         'event_endTime',
         'event_category',
         'event_details',
-        'user_id'
+        'user_id',
+        'count'
     ];
 
     public function user()
