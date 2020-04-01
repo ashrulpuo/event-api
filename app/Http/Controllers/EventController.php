@@ -50,9 +50,10 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show($id)
     {
-        $detail = Event::find($event)->first();
+        // dd($id);
+        $detail = Event::where('id', $id)->first();
         return response()->json([
             'success' => true,
             'eventDetail' => $detail
