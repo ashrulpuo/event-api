@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
 use App\Interest;
+use App\EventStatus;
 
 class EventController extends Controller
 {
@@ -17,10 +18,11 @@ class EventController extends Controller
      */
     public function index($id)
     {
+        $userStatus = EventStatus::select('event_id')->where('user_id', $id)->get()->toArray();
         $interest = Interest::select('interest')->where('user_id', $id)->get()->toArray();
-        $events = Event::whereNotIn('event_category', $interest)->get()->toArray();
-        $eventsInterest = Event::whereIn('event_category', $interest)->get()->toArray();
-        
+        $events = Event::whereNotIn('event_category', $interest)->whereNotIn('id', $userStatus)->get()->toArray();
+        $eventsInterest = Event::whereIn('event_category', $interest)->whereNotIn('id', $userStatus)->get()->toArray();
+
         $data = array_merge($eventsInterest, $events);
         return response()->json([
             'success' => true,
